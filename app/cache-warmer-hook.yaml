@@ -2,10 +2,10 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: version-tracker
-  annotations:
-    argocd.argoproj.io/sync-wave: "-1"
+#  annotations:
+#    argocd.argoproj.io/sync-wave: "-1"
 data:
-  version: "1.0.0"  # Change this to trigger new syncs
+  counter: "1"  # Change this to trigger new syncs
 ---
 apiVersion: batch/v1
 kind: Job
