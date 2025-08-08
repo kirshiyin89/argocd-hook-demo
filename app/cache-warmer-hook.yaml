@@ -4,7 +4,7 @@ metadata:
   name: cache-warmer
   annotations:
     argocd.argoproj.io/hook: Sync
-    argocd.argoproj.io/hook-weight: "1"
+   # argocd.argoproj.io/hook-weight: "1"
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
     argocd.argoproj.io/sync-options: Force=true,Replace=true
 spec:
