@@ -3,6 +3,7 @@ kind: Application
 metadata:
   name: hooks-demo
   namespace: argocd
+  argocd.argoproj.io/refresh: "hard"
 spec:
   project: default
   source:
