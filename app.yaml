@@ -3,7 +3,6 @@ kind: Application
 metadata:
   name: hooks-demo
   namespace: argocd
-  argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   project: default
   source:
