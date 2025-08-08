@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: cache-warmer
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-weight: "1"
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  ttlSecondsAfterFinished: 300
+  template:
+    metadata:
+      name: cache-warmer
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: warmer
+        image: curlimages/curl:latest
+        command:
+        - /bin/sh
+        - -c
+        - |
+          echo "Starting cache warming..."
+          
+          # Simulate cache warming
+          
+          echo "Cache warming completed successfully!"
