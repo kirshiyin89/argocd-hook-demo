@@ -3,11 +3,11 @@ kind: Job
 metadata:
   name: cache-warmer
   annotations:
-    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook: PostSync
     argocd.argoproj.io/hook-weight: "1"
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
 spec:
-  ttlSecondsAfterFinished: 300
+  # ttlSecondsAfterFinished: 300
   template:
     metadata:
       name: cache-warmer
@@ -22,6 +22,17 @@ spec:
         - |
           echo "Starting cache warming..."
           
-          # Simulate cache warming
+          # Wait for service to be ready
+          until curl -f http://simple-app-service/health; do
+            echo "Waiting for app to be ready..."
+            sleep 5
+          done
+          
+          # Warm up critical endpoints
+          echo "Warming cache for home page..."
+          curl -s http://simple-app-service/ > /dev/null
+          
+          echo "Warming cache for API endpoint..."
+          curl -s http://simple-app-service/api/data > /dev/null
           
           echo "Cache warming completed successfully!"
