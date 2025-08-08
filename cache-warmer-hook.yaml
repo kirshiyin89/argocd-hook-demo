@@ -32,6 +32,7 @@ spec:
           curl -s http://simple-app-service/ > /dev/null
           
           echo "Warming cache for API endpoint..."
+          
           curl -s http://simple-app-service/api/data > /dev/null
           
           echo "Cache warming completed successfully!"
