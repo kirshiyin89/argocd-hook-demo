@@ -1,9 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: cache-warmer
-  annotations:
-    argocd.argoproj.io/sync-options: Replace=true
+  name: cache-warmer-{{ now | date "20060102-150405" }}
 spec:
   ttlSecondsAfterFinished: 3600
   selector:
