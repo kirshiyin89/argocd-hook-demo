@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/kirshiyin89/argocd-hook-demo
     targetRevision: HEAD
-    path: app/jobs
+    path: app
   destination:
     server: https://kubernetes.default.svc
     namespace: default
@@ -17,6 +17,6 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-    - Replace=true
+    - ApplyOutOfSyncOnly=true
 
 
