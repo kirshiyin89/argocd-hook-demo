@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  generateName: cache-warmer-
+  name: cache-warmer
   annotations:
     argocd.argoproj.io/sync-options: Replace=true
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
