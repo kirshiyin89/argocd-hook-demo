@@ -1,9 +1,9 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  generateName: my-job
+  name: my-job
   annotations:
-    argocd.argoproj.io/sync-options: Replace=true
+    argocd.argoproj.io/sync-options: Replace=true, Force=true
 spec:
   ttlSecondsAfterFinished: 3600
   template:
