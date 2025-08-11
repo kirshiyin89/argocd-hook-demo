@@ -3,13 +3,9 @@ kind: Job
 metadata:
   name: cache-warmer
   annotations:
-    argocd.argoproj.io/sync-options: Replace=true
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
 spec:
   ttlSecondsAfterFinished: 3600
-  selector:
-    matchLabels:
-      job-name: cache-warmer
   template:
     metadata:
       labels:
