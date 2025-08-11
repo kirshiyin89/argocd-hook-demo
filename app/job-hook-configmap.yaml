@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: version-tracker
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+data:
+  # This will change whenever the job spec changes
+  version: {{ include "my-job-job" . | sha256sum | trunc 8 | quote }}
+  updated: {{ now | date "2006-01-02T15:04:05Z" | quote }}
+---
+{{- define "cache-warmer-job" -}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: my-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: warmer
+        image: curlimages/curl:latest
+        command:
+        - /bin/sh
+        - -c
+        - |
+          echo "Starting cache warming..."
+          until curl -f http://simple-app-service/health; do
+            echo "Waiting for app to be ready..."
+            sleep 5
+          done
+          echo "Warming cache for home page..."
+          curl -s http://simple-app-service/ > /dev/null
+          echo "Warming cache for API endpoint..."
+          curl -s http://simple-app-service/api/data > /dev/null
+          echo "Cache warming completed successfully!"
+{{- end -}}
+---
+{{ include "my-job-job" . }}
+metadata:
+  name: my-job
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
