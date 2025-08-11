@@ -1,14 +1,14 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  generateName: cache-warmer-
+  generateName: my-job
   annotations:
     argocd.argoproj.io/sync-options: Replace=true
 spec:
   template:
     metadata:
       labels:
-        job-name: cache-warmer
+        job-name: my-job
     spec:
       restartPolicy: Never
       containers:
