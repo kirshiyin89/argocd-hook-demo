@@ -10,7 +10,7 @@ data:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: cache-warmer
+  name: cache-warmer2
   annotations:
     argocd.argoproj.io/hook: Sync
    # argocd.argoproj.io/hook-weight: "1"
