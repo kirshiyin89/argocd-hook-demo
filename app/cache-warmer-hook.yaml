@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: cache-warmer
+  name: cache-warmer-{{ .Values.jobId | default "manual" }}
   annotations:
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
 spec:
