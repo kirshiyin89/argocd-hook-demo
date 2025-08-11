@@ -1,9 +1,11 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: cache-warmer-{{ .Values.jobId | default "manual" }}
+  name: cache-warmer
   annotations:
-    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    argocd.argoproj.io/sync-options: Replace=true
 spec:
   ttlSecondsAfterFinished: 3600
   template:
