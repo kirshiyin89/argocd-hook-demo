@@ -15,7 +15,7 @@ spec:
         - /bin/sh
         - -c
         - |
-          echo "Starting cache warming..."
+          echo "Starting cache warming...."
           
           # Wait for service to be ready
           until curl -f http://simple-app-service/health; do
