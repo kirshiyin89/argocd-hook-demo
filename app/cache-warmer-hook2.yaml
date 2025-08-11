@@ -1,9 +1,9 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: my-job
+  name: my-job-{{ now | date "20060102-150405" }}
   annotations:
-    argocd.argoproj.io/sync-options: Replace=true, Force=true
+    argocd.argoproj.io/sync-options: Replace=true
 spec:
   ttlSecondsAfterFinished: 3600
   template:
