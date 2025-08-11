@@ -18,7 +18,5 @@ spec:
       selfHeal: true
     syncOptions:
     - ApplyOutOfSyncOnly=true
-    - Replace=true
-
 
 
