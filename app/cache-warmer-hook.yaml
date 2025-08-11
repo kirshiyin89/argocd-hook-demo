@@ -5,9 +5,14 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-options: Replace=true
 spec:
+  ttlSecondsAfterFinished: 3600
+  selector:
+    matchLabels:
+      job-name: cache-warmer
   template:
     metadata:
-      name: cache-warmer
+      labels:
+        job-name: cache-warmer
     spec:
       restartPolicy: Never
       containers:
@@ -17,19 +22,13 @@ spec:
         - /bin/sh
         - -c
         - |
-          echo "Starting cache warming..."
-          
-          # Wait for service to be ready
+          echo "Starting cache warming...."
           until curl -f http://simple-app-service/health; do
             echo "Waiting for app to be ready..."
             sleep 5
           done
-          
-          # Warm up critical endpoints
           echo "Warming cache for home page..."
           curl -s http://simple-app-service/ > /dev/null
-          
           echo "Warming cache for API endpoint..."
           curl -s http://simple-app-service/api/data > /dev/null
-          
           echo "Cache warming completed successfully!"
