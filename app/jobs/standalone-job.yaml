@@ -18,4 +18,4 @@ spec:
         - /bin/sh
         - -c
         - |
-          echo "Started job"
+          echo "Started job."
