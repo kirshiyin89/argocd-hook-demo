@@ -8,16 +8,38 @@ data:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: cache-warmer
+  generateName: cache-warmer-
   annotations:
     argocd.argoproj.io/hook: PostSync
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+  labels:
+    job-type: cache-warmer
 spec:
   template:
     metadata:
       name: cache-warmer
     spec:
       restartPolicy: Never
+      serviceAccountName: job-cleaner
+      initContainers:
+      - name: cleanup-old-jobs
+        image: bitnami/kubectl:latest
+        command:
+        - /bin/sh
+        - -c
+        - |
+          echo "Cleaning up old cache-warmer jobs (keeping last 2)..."
+          
+          OLD_JOBS=$(kubectl get jobs -l job-type=cache-warmer \
+            --sort-by=.metadata.creationTimestamp \
+            -o name | head -n -2)
+          
+          if [ -n "$OLD_JOBS" ]; then
+            echo "Deleting: $OLD_JOBS"
+            echo "$OLD_JOBS" | xargs kubectl delete
+          fi
+          
+          echo "Cleanup completed"
       containers:
       - name: warmer
         image: curlimages/curl:latest
@@ -25,6 +47,6 @@ spec:
         - /bin/sh
         - -c
         - |
-          echo "Done cache warming"
-          
+          echo "Starting cache warming..."
+          # Your cache warming logic
           echo "Cache warming completed successfully!"
