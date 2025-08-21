@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: version-tracker
 data:
-  counter: "1"
+  counter: "2"
 ---
 apiVersion: batch/v1
 kind: Job
