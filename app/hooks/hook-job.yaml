@@ -12,7 +12,7 @@ metadata:
   annotations:
     argocd.argoproj.io/hook: PostSync
     argocd.argoproj.io/sync-wave: "-1"
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    argocd.argoproj.io/sync-options: PruneLast=true
    # argocd.argoproj.io/hook-delete-policy: HookSucceeded, HookFailed
 spec:
   template:
