@@ -3,32 +3,7 @@ kind: ConfigMap
 metadata:
   name: version-tracker
 data:
-  counter: "2"
----
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: job-cleaner
-  annotations:
-    argocd.argoproj.io/hook: PreSync
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded
-spec:
-  template:
-    metadata:
-      name: job-cleaner
-    spec:
-      restartPolicy: Never
-      serviceAccountName: job-manager
-      containers:
-      - name: cleaner
-        image: bitnami/kubectl:latest
-        command:
-        - /bin/sh
-        - -c
-        - |
-          echo "Cleaning up previous cache-warmer job..."
-          kubectl delete job cache-warmer --ignore-not-found=true
-          echo "Cleanup completed"
+  counter: "1"
 ---
 apiVersion: batch/v1
 kind: Job
@@ -36,8 +11,7 @@ metadata:
   name: cache-warmer
   annotations:
     argocd.argoproj.io/hook: PostSync
-    argocd.argoproj.io/sync-options: ServerSideApply=true
-   # argocd.argoproj.io/hook-delete-policy: HookSucceeded, HookFailed
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded, HookFailed
 spec:
   template:
     metadata:
