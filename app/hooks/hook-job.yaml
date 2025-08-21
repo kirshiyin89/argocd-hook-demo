@@ -31,8 +31,8 @@ spec:
           # Wait for service with 5 second timeout
           echo "Checking if simple-app-service is available (5 second timeout)..."
       #    if ! curl -f --connect-timeout 5 --max-time 5 http://simple-app-service/health; then
-            echo "ERROR: simple-app-service is not available within 5 seconds"
-            echo "Cache warming failed - service not ready"
+     #       echo "ERROR: simple-app-service is not available within 5 seconds"
+     #       echo "Cache warming failed - service not ready"
      #       exit 1
      #     fi
         
