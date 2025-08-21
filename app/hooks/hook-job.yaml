@@ -26,12 +26,20 @@ spec:
         - -c
         - |
           echo "Starting cache warming...."
-          until curl -f http://simple-app-service/health; do
-            echo "Waiting for app to be ready..."
-            sleep 5
-          done
+          
+          # Wait for service with 5 second timeout
+          echo "Checking if simple-app-service is available (5 second timeout)..."
+          if ! curl -f --connect-timeout 5 --max-time 5 http://simple-app-service/health; then
+            echo "ERROR: simple-app-service is not available within 5 seconds"
+            echo "Cache warming failed - service not ready"
+            exit 1
+          fi
+          
+          echo "Service is ready! Proceeding with cache warming..."
           echo "Warming cache for home page..."
           curl -s http://simple-app-service/ > /dev/null
+          
           echo "Warming cache for API endpoint..."
           curl -s http://simple-app-service/api/data > /dev/null
+          
           echo "Cache warming completed successfully!"
