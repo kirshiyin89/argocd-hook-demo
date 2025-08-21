@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: version-tracker
 data:
-  version: 1
+  counter: "1"  # Change this to trigger new syncs
 ---
 apiVersion: batch/v1
 kind: Job
@@ -15,9 +15,8 @@ metadata:
 spec:
   template:
     metadata:
-      labels:
-        job-name: cache-warmer
-     spec:
+      name: cache-warmer
+    spec:
       restartPolicy: Never
       containers:
       - name: warmer
@@ -26,4 +25,6 @@ spec:
         - /bin/sh
         - -c
         - |
-          echo "Done cache warming."
+          echo "Done cache warming"
+          
+          echo "Cache warming completed successfully!"
