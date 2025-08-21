@@ -13,7 +13,7 @@ metadata:
     argocd.argoproj.io/hook: PostSync
     argocd.argoproj.io/hook-delete-policy: HookSucceeded, HookFailed
 spec:
-  backoffLimit: 1
+  backoffLimit: 0
   template:
     metadata:
       name: cache-warmer
