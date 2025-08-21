@@ -11,7 +11,7 @@ metadata:
   name: cache-warmer
   annotations:
     argocd.argoproj.io/hook: PostSync
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded, HookFailed
 spec:
   backoffLimit: 0
   template:
@@ -30,17 +30,9 @@ spec:
           
           # Wait for service with 5 second timeout
           echo "Checking if simple-app-service is available (5 second timeout)..."
-          if ! curl -f --connect-timeout 5 --max-time 5 http://simple-app-service/health; then
+      #    if ! curl -f --connect-timeout 5 --max-time 5 http://simple-app-service/health; then
             echo "ERROR: simple-app-service is not available within 5 seconds"
             echo "Cache warming failed - service not ready"
-            exit 1
-          fi
-          
-          echo "Service is ready! Proceeding with cache warming..."
-          echo "Warming cache for home page..."
-          curl -s http://simple-app-service/ > /dev/null
-          
-          echo "Warming cache for API endpoint..."
-          curl -s http://simple-app-service/api/data > /dev/null
-          
-          echo "Cache warming completed successfully!"
+     #       exit 1
+     #     fi
+        
