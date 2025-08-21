@@ -18,6 +18,7 @@ spec:
       name: cache-warmer
     spec:
       restartPolicy: Never
+      backoffLimit: 1
       containers:
       - name: warmer
         image: curlimages/curl:latest
