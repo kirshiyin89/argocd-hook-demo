@@ -18,6 +18,7 @@ spec:
       name: job-cleaner
     spec:
       restartPolicy: Never
+      serviceAccountName: job-manager
       containers:
       - name: cleaner
         image: bitnami/kubectl:latest
