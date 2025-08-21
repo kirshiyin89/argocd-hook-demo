@@ -26,5 +26,5 @@ spec:
         - -c
         - |
           echo "Done cache warming"
-          
+          curl localhost:8080
           echo "Cache warming completed successfully!"
