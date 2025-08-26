@@ -28,4 +28,4 @@ spec:
         - /bin/sh
         - -c
         - |
-          echo "Starting cache warming...."
+          echo "Starting cache warming.."
