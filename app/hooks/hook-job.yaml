@@ -8,15 +8,15 @@ data:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  generateName: cache-warmer-
+  name: cache-warmer
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
-    argocd.argoproj.io/hook-delete-policy: HookBeforeCreation
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded, HookFailed
 spec:
   backoffLimit: 0
   template:
-  #  metadata:
-  #    name: cache-warmer
+    metadata:
+      name: cache-warmer
     spec:
       restartPolicy: Never
       containers:
