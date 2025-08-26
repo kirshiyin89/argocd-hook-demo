@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: standalone-job
+  generateName: standalone-job-
   annotations:
     argocd.argoproj.io/sync-options: Force=true
 spec:
