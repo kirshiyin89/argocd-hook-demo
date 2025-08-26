@@ -1,19 +1,17 @@
-#apiVersion: v1
-#kind: ConfigMap
-#metadata:
-#  name: version-tracker
-#data:
-#  counter: "1"
-#---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: version-tracker
+data:
+  counter: "2"
+---
 apiVersion: batch/v1
 kind: Job
 metadata:
   name: cache-warmer
   annotations:
-    argocd.argoproj.io/sync-wave: "-1"
-    argocd.argoproj.io/sync-options: Replace=true, Force=true
- #   argocd.argoproj.io/hook: PostSync
-    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded, HookFailed
 spec:
   backoffLimit: 0
   template:
@@ -28,4 +26,4 @@ spec:
         - /bin/sh
         - -c
         - |
-          echo "Starting cache warming.."
+          echo "Starting cache warming...."
