@@ -6,9 +6,9 @@ metadata:
     argocd.argoproj.io/sync-options: Force=true
 spec:
   template:
-    metadata:
-      labels:
-        job-name: standalone-job
+  #  metadata:
+ #     labels:
+ #       job-name: standalone-job
     spec:
       restartPolicy: Never
       containers:
