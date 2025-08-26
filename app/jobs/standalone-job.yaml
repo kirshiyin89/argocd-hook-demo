@@ -1,14 +1,14 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  generateName: standalone-job-
+  name: standalone-job
   annotations:
-#    argocd.argoproj.io/sync-options: Force=true
+    argocd.argoproj.io/sync-options: Force=true
 spec:
   template:
-  #  metadata:
- #     labels:
- #       job-name: standalone-job
+    metadata:
+      labels:
+        job-name: standalone-job
     spec:
       restartPolicy: Never
       containers:
