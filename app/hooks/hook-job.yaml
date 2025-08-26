@@ -14,6 +14,7 @@ metadata:
     argocd.argoproj.io/hook-delete-policy: HookSucceeded, HookFailed
 spec:
   backoffLimit: 0
+  activeDeadlineSeconds: 300
   template:
     metadata:
       name: cache-warmer
