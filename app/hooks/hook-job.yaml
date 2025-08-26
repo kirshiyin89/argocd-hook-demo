@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: version-tracker
 data:
-  counter: "2"
+  counter: "1"
 ---
 apiVersion: batch/v1
 kind: Job
@@ -27,4 +27,15 @@ spec:
         - -c
         - |
           echo "Starting cache warming...."
-         
+          
+          # Wait for service with 5 second timeout
+
+          
+          echo "Service is ready! Proceeding with cache warming..."
+          echo "Warming cache for home page..."
+          curl -s http://simple-app-service/ > /dev/null
+          
+          echo "Warming cache for API endpoint..."
+          curl -s http://simple-app-service/api/data > /dev/null
+          
+          echo "Cache warming completed successfully!"
