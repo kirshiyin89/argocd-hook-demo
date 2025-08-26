@@ -3,7 +3,7 @@ kind: Job
 metadata:
   generateName: standalone-job-
   annotations:
-    argocd.argoproj.io/sync-options: Force=true
+#    argocd.argoproj.io/sync-options: Force=true
 spec:
   template:
   #  metadata:
