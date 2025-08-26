@@ -1,10 +1,10 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: version-tracker
-data:
-  counter: "1"
----
+#apiVersion: v1
+#kind: ConfigMap
+#metadata:
+#  name: version-tracker
+#data:
+#  counter: "1"
+#---
 apiVersion: batch/v1
 kind: Job
 metadata:
