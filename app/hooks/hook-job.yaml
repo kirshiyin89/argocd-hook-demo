@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: version-tracker
 data:
-  counter: "1"
+  counter: "2"
 ---
 apiVersion: batch/v1
 kind: Job
@@ -11,10 +11,12 @@ metadata:
   name: cache-warmer
   annotations:
     argocd.argoproj.io/hook: PostSync
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded, HookFailed
 spec:
   backoffLimit: 0
   template:
+    metadata:
+      name: cache-warmer
     spec:
       restartPolicy: Never
       containers:
@@ -25,5 +27,4 @@ spec:
         - -c
         - |
           echo "Starting cache warming...."
-          # Your cache warming logic
-          echo "Cache warming completed, logs being shipped..."
+         
