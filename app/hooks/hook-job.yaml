@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: version-tracker
 data:
-  counter: "1"
+  counter: "2"
 ---
 apiVersion: batch/v1
 kind: Job
@@ -13,7 +13,7 @@ metadata:
     argocd.argoproj.io/hook: PostSync
    # argocd.argoproj.io/hook-delete-policy: HookSucceeded
 spec:
-  ttlSecondsAfterFinished: 360
+  ttlSecondsAfterFinished: 60
   backoffLimit: 0
   template:
     spec:
