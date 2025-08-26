@@ -11,8 +11,7 @@ metadata:
   name: cache-warmer
   annotations:
     argocd.argoproj.io/hook: PostSync
-    argocd.argoproj.io/sync-options: Replace=true,Force=true
-    argocd.argoproj.io/hook-delete-policy: HookBeforeCreation
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
 spec:
   backoffLimit: 0
   template:
