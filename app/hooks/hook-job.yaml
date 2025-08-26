@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: version-tracker
 data:
-  counter: "3"
+  counter: "13"
 ---
 apiVersion: batch/v1
 kind: Job
@@ -13,6 +13,7 @@ metadata:
     argocd.argoproj.io/hook: PostSync
     argocd.argoproj.io/hook-delete-policy: HookSucceeded
 spec:
+  ttlSecondsAfterFinished: 360
   backoffLimit: 0
   template:
     spec:
@@ -27,22 +28,3 @@ spec:
           echo "Starting cache warming...."
           # Your cache warming logic
           echo "Cache warming completed, logs being shipped..."
-          sleep 25  # Fluentd shipping window
----
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: cache-warmer-cleanup
-  annotations:
-    argocd.argoproj.io/hook: PostSync
-    argocd.argoproj.io/hook-weight: "1"  # Runs after cache-warmer
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded, HookFailed
-spec:
-  backoffLimit: 0
-  template:
-    spec:
-      restartPolicy: Never
-      containers:
-      - name: cleanup
-        image: curlimages/curl:latest
-        command: ["echo", "Cleanup placeholder - logs should be shipped by now"]
