@@ -10,8 +10,8 @@ kind: Job
 metadata:
   name: cache-warmer
   annotations:
-    argocd.argoproj.io/hook: PostSync
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded, HookFailed
+    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/hook-delete-policy: HookBeforeCreation
 spec:
   backoffLimit: 0
   template:
